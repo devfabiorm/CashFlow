@@ -123,6 +123,9 @@
   <data name="AMOUN_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>Le montant doit étre supérieur à zéro</value>
   </data>
+  <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
+    <value>Dépense introuvable</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Le type de paiement n'est pas valide</value>
   </data>
