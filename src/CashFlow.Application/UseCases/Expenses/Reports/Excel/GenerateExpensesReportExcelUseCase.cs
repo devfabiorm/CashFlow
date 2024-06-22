@@ -25,7 +25,7 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
             return [];
         }
 
-        var workbook = new XLWorkbook();
+        using  var workbook = new XLWorkbook();
 
         workbook.Author = "Fabio Ribeiro";
         workbook.Style.Font.FontSize = 12;
