@@ -1,6 +1,5 @@
 ﻿
 using CashFlow.Domain.Enums;
-using CashFlow.Domain.Payment;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using ClosedXML.Excel;
@@ -25,7 +24,7 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
             return [];
         }
 
-        using  var workbook = new XLWorkbook();
+        using var workbook = new XLWorkbook();
 
         workbook.Author = "Fabio Ribeiro";
         workbook.Style.Font.FontSize = 12;
@@ -63,10 +62,10 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
     {
         return paymentType switch
         {
-            PaymentType.Cash => ResourcePaymentTypeMessages.CASH,
-            PaymentType.CreditCard => ResourcePaymentTypeMessages.CREDIT_CARD,
-            PaymentType.DebitCard => ResourcePaymentTypeMessages.DEBIT_CARD,
-            PaymentType.EletronicTransfer => ResourcePaymentTypeMessages.ELETRONIC_TRANSFER,
+            PaymentType.Cash => ResourceReportGenerationMessages.CASH,
+            PaymentType.CreditCard => ResourceReportGenerationMessages.CREDIT_CARD,
+            PaymentType.DebitCard => ResourceReportGenerationMessages.DEBIT_CARD,
+            PaymentType.EletronicTransfer => ResourceReportGenerationMessages.ELETRONIC_TRANSFER,
             _ => string.Empty
         };
     }
