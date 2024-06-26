@@ -1,10 +1,10 @@
 ﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
-using CashFlow.Domain.Entities;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using PdfSharp.Fonts;
+using System.Reflection;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf;
 public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCase
@@ -76,7 +76,11 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
 
         var row = table.AddRow();
 
-        row.Cells[0].AddImage("C:\\Users\\fabio\\Desktop\\Zero.png");
+        var assembly = Assembly.GetExecutingAssembly();
+        var directoryName = Path.GetDirectoryName(assembly.Location);
+        var pathFile = Path.Combine(directoryName!, "Logo", "Zero.png");
+
+        row.Cells[0].AddImage(pathFile);
 
         row.Cells[1].AddParagraph("Hey, Fabio Ribeiro");
         row.Cells[1].Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 16 };
