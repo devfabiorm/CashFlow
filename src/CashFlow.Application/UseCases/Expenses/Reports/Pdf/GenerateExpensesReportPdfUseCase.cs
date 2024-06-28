@@ -1,5 +1,6 @@
 ﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Colors;
 using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
+using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using MigraDoc.DocumentObjectModel;
@@ -59,6 +60,9 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
 
             row.Cells[1].AddParagraph(expense.Date.ToString("t"));
             SetStyleBaseForExpenseInformation(row.Cells[1]);
+
+            row.Cells[2].AddParagraph(expense.PaymentType.PaymentTypeToString());
+            SetStyleBaseForExpenseInformation(row.Cells[2]);
 
             AddAmountForExpense(row.Cells[3], expense.Amount);
 
