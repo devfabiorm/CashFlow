@@ -123,8 +123,17 @@
   <data name="AMOUN_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>The amount must be greater than zero</value>
   </data>
+  <data name="EMAIL_EMPTY" xml:space="preserve">
+    <value>Email connot be empty</value>
+  </data>
+  <data name="EMAIL_INVALID" xml:space="preserve">
+    <value>Invalid email format</value>
+  </data>
   <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
     <value>Expense not found</value>
+  </data>
+  <data name="NAME_EMPTY" xml:space="preserve">
+    <value>Name cannot be empty</value>
   </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Payment Type is not valid</value>
