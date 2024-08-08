@@ -11,6 +11,7 @@
     <None Remove="UseCases\Expenses\Reports\Pdf\Fonts\Raleway-Regular.ttf" />
     <None Remove="UseCases\Expenses\Reports\Pdf\Fonts\WorkSans-Black.ttf" />
     <None Remove="UseCases\Expenses\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
+    <None Remove="UseCases\Users\PasswordValidator.cs~RFfd3145a.TMP" />
   </ItemGroup>
 
   <ItemGroup>
