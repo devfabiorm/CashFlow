@@ -132,6 +132,9 @@
   <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
     <value>Despesa não encontrada</value>
   </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>A senha deve ter no minímo 8 caracteres, com pelo menos uma letra maiúscula, um número e um caractere especial (por exemplo: !, ?, *,.)</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>O nome não pode ficar vazio</value>
   </data>

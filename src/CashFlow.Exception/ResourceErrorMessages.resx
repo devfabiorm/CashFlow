@@ -132,6 +132,9 @@
   <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
     <value>Expense not found</value>
   </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>The password must be at least 8 characters long, with at least one capital letter, one number and one special character (for example: !, ?, *,.)</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Name cannot be empty</value>
   </data>
