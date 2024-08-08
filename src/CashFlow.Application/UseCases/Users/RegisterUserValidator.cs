@@ -13,5 +13,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
             .WithMessage(ResourceErrorMessages.EMAIL_EMPTY)
             .EmailAddress()
             .WithMessage(ResourceErrorMessages.EMAIL_INVALID);
+
+        RuleFor(user => user.Password).SetValidator(new PasswordValidator<RequestRegisterUserJson>());
     }
 }
