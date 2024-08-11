@@ -1,4 +1,5 @@
-﻿using CashFlow.Communication.Requests;
+﻿using CashFlow.Application.UseCases.Login.DoLogin;
+using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,5 +16,7 @@ public class LoginController : ControllerBase
         [FromBody] RequestLoginJson request)
     {
         var response = await useCase.Execute(request);
+
+        return Ok(response);
     }
 }
