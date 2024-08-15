@@ -31,7 +31,8 @@ public class RegisterUserUseCaseTest
         var unitOFWork = UnitOfWorkBuilder.Build();
         var passwordEncrypter = PasswordEncrypterBuilder.Build();
         var jwtTokenGenerator = JwtTokenGeneratorBuilder.Build();
+        var readRepository = new UserReadOnlyRepositoryBuilder().Build();
 
-        return new RegisterUserUseCase(mapper, passwordEncrypter, null, userWriteOnlyRepository, unitOFWork, jwtTokenGenerator);
+        return new RegisterUserUseCase(mapper, passwordEncrypter, readRepository, userWriteOnlyRepository, unitOFWork, jwtTokenGenerator);
     }
 }
