@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlow.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validator.Tests", "tests\Validator.Tests\Validator.Tests.csproj", "{02990ABF-68A3-4CF2-BC2A-BED1FF615BA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{9C9054B7-4F5D-4B90-B875-006BA2F96768}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{9C9054B7-4F5D-4B90-B875-006BA2F96768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases.Testes", "tests\UseCases.Testes\UseCases.Testes.csproj", "{B97DB235-6FF2-426E-862A-C1C71A6557F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{9C9054B7-4F5D-4B90-B875-006BA2F96768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C9054B7-4F5D-4B90-B875-006BA2F96768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C9054B7-4F5D-4B90-B875-006BA2F96768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97DB235-6FF2-426E-862A-C1C71A6557F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97DB235-6FF2-426E-862A-C1C71A6557F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97DB235-6FF2-426E-862A-C1C71A6557F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97DB235-6FF2-426E-862A-C1C71A6557F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{F5B761EA-BC48-447E-9847-CBCD7DAAFD39} = {B909D15B-B06E-4565-808B-BCBA9DD082BA}
 		{02990ABF-68A3-4CF2-BC2A-BED1FF615BA9} = {540AF9A0-E25A-4E8E-AE65-4928529788B1}
 		{9C9054B7-4F5D-4B90-B875-006BA2F96768} = {540AF9A0-E25A-4E8E-AE65-4928529788B1}
+		{B97DB235-6FF2-426E-862A-C1C71A6557F7} = {540AF9A0-E25A-4E8E-AE65-4928529788B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {545347A2-99F1-48FE-B8D2-CA88B1C55751}
