@@ -7,7 +7,7 @@ public class UserBuilder
 {
     public static User Build()
     {
-        var passwordEncrypter = PasswordEncrypterBuilder.Build();
+        var passwordEncrypter = new PasswordEncrypterBuilder().Build();
 
         var user = new Faker<User>()
             .RuleFor(u => u.Id, _ => 1)
