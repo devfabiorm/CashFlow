@@ -39,15 +39,19 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
         response.RootElement.GetProperty("token").GetString().Should().NotBeNullOrEmpty();
     }
 
-    [Fact]
-    public async Task Error_Empty_Name()
+    [Theory]
+    [InlineData("fr")]
+    [InlineData("en")]
+    [InlineData("pt-BR")]
+    [InlineData("pt-PT")]
+    public async Task Error_Empty_Name(string cultureInfo)
     {
         //Arrange
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
 
         //Act
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("fr"));
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo));
 
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
 
@@ -60,7 +64,7 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
 
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
 
-        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo("fr"));
+        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(cultureInfo));
 
         errors.Should().HaveCount(1).And.Contain(error => error.GetString()!.Equals(expectedMessage));
     }
