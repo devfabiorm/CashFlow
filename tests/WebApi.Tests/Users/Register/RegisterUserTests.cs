@@ -1,7 +1,9 @@
 ﻿using CashFlow.Exception;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
+using System.Globalization;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -45,6 +47,8 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
         request.Name = string.Empty;
 
         //Act
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("fr"));
+
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
 
         //Assert
@@ -56,6 +60,8 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
 
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
 
-        errors.Should().HaveCount(1).And.Contain(error => error.GetString()!.Equals(ResourceErrorMessages.NAME_EMPTY));
+        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo("fr"));
+
+        errors.Should().HaveCount(1).And.Contain(error => error.GetString()!.Equals(expectedMessage));
     }
 }
