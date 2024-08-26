@@ -42,9 +42,9 @@ internal class ExpensesRepository : IExpensesWriteOnlyRepository, IExpensesReadO
         return await _dbContext.Expenses.AsNoTracking().SingleOrDefaultAsync(e => e.Id == id);
     }
 
-    async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(long id)
+    async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(User user, long id)
     {
-        return await _dbContext.Expenses.SingleOrDefaultAsync(e => e.Id == id);
+        return await _dbContext.Expenses.SingleOrDefaultAsync(e => e.Id == id && user.Id == e.UserId);
     }
 
     public void Update(Expense expense)
