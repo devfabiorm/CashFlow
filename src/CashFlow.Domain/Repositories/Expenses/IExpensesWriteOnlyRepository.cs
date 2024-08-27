@@ -9,5 +9,5 @@ public interface IExpensesWriteOnlyRepository
     /// </summary>
     /// <param name="id">Expense identifier</param>
     /// <returns>This function returns TRUE if the deletion was successful otherwise FALSE</returns>
-    Task<bool> Delete(long id);
+    Task Delete(long id);
 }
