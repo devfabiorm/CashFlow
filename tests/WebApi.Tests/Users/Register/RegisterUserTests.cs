@@ -3,21 +3,16 @@ using CommonTestUtilities.Requests;
 using FluentAssertions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Users.Register;
-public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTests : CashFlowClassFixture
 {
     private const string METHOD = "api/Users";
 
-    private readonly HttpClient _httpClient;
-
-    public RegisterUserTests(CustomWebApplicationFactory webApplicationFactory)
+    public RegisterUserTests(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
     }
 
     [Fact]
@@ -27,7 +22,7 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
 
         //Act
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
 
         //Assert
         result.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -42,16 +37,14 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
 
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
-    public async Task Error_Empty_Name(string cultureInfo)
+    public async Task Error_Empty_Name(string culture)
     {
         //Arrange
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
 
         //Act
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo));
-
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(requestUri: METHOD, request: request, culture: culture);
 
         //Assert
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -62,7 +55,7 @@ public class RegisterUserTests : IClassFixture<CustomWebApplicationFactory>
 
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
 
-        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(cultureInfo));
+        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(culture));
 
         errors.Should().HaveCount(1).And.Contain(error => error.GetString()!.Equals(expectedMessage));
     }

@@ -11,18 +11,16 @@ using System.Text.Json;
 using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Login.DoLogin;
-public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest : CashFlowClassFixture
 {
     private const string METHOD = "api/Login";
 
-    private readonly HttpClient _httpClient;
     private readonly string _email;
     private readonly string _name;
     private readonly string _password;
 
-    public DoLoginTest(CustomWebApplicationFactory webApplicationFactory)
+    public DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
         _email = webApplicationFactory.GetEmail();
         _name = webApplicationFactory.GetName();
         _password = webApplicationFactory.GetPassword();
@@ -39,7 +37,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
         };
 
         //Act
-        var response = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var response = await DoPost(METHOD, request);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -57,10 +55,8 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
         //Arrange
         var request = RequestLoginJsonBuilder.Build();
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
-
         //Act
-        var response = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var response = await DoPost(requestUri: METHOD, request: request, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 

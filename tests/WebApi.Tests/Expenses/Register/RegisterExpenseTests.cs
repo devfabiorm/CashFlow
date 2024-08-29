@@ -9,16 +9,14 @@ using System.Text.Json;
 using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Expenses.Register;
-public class RegisterExpenseTests : IClassFixture<CustomWebApplicationFactory>
+public class RegisterExpenseTests : CashFlowClassFixture
 {
     private const string METHOD = "api/Expenses";
 
-    private readonly HttpClient _httpClient;
     private readonly string _token;
 
-    public RegisterExpenseTests(CustomWebApplicationFactory webApplicationFactory)
+    public RegisterExpenseTests(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
         _token = webApplicationFactory.GetToken();
     }
 
@@ -28,10 +26,8 @@ public class RegisterExpenseTests : IClassFixture<CustomWebApplicationFactory>
         //Arrange
         var request = RequestRegisterExpenseJsonBuilder.Build();
 
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
         //Act
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(requestUri: METHOD, request: request, token: _token);
 
         //Assert
         result.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -45,22 +41,19 @@ public class RegisterExpenseTests : IClassFixture<CustomWebApplicationFactory>
 
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
-    public async Task Error_Title_Empty(string cultureInfo)
+    public async Task Error_Title_Empty(string culture)
     {
         //Arrange
         var request = RequestRegisterExpenseJsonBuilder.Build();
         request.Title = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo));
-
         //Act
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(requestUri: METHOD, request: request, token: _token, culture: culture);
 
         //Assert
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        var expectedLanguage = ResourceErrorMessages.ResourceManager.GetString("REQUIRED_TITLE", new CultureInfo(cultureInfo));
+        var expectedLanguage = ResourceErrorMessages.ResourceManager.GetString("REQUIRED_TITLE", new CultureInfo(culture));
 
         var body = await result.Content.ReadAsStreamAsync();
         var response = await JsonDocument.ParseAsync(body);
