@@ -3,16 +3,16 @@ using CashFlow.Domain.Repositories.Expenses;
 using Moq;
 
 namespace CommonTestUtilities.Repositories;
-public class ExpenseReadOnlyRepositoryBuilder
+public class ExpensesReadOnlyRepositoryBuilder
 {
     private readonly Mock<IExpensesReadOnlyRepository> _repository;
 
-    public ExpenseReadOnlyRepositoryBuilder()
+    public ExpensesReadOnlyRepositoryBuilder()
     {
         _repository = new Mock<IExpensesReadOnlyRepository>();
     }
 
-    public ExpenseReadOnlyRepositoryBuilder GetAll(User user, List<Expense> expenses)
+    public ExpensesReadOnlyRepositoryBuilder GetAll(User user, List<Expense> expenses)
     {
         _repository.Setup(r => r.GetAll(user)).ReturnsAsync(expenses);
 
@@ -20,4 +20,14 @@ public class ExpenseReadOnlyRepositoryBuilder
     }
 
     public IExpensesReadOnlyRepository Build() => _repository.Object;
+
+    public ExpensesReadOnlyRepositoryBuilder GetById(User user, Expense? expense)
+    {
+        if(expense is not null)
+        {
+            _repository.Setup(r => r.GetById(user, expense.Id)).ReturnsAsync(expense);
+        }
+
+        return this;
+    }
 }

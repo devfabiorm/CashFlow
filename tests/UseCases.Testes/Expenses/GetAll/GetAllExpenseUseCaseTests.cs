@@ -33,7 +33,7 @@ public class GetAllExpenseUseCaseTests
 
     private GetAllExpensesUseCase CreateUseCase(User user, List<Expense> expenses)
     {
-        var repository = new ExpenseReadOnlyRepositoryBuilder().GetAll(user, expenses).Build();
+        var repository = new ExpensesReadOnlyRepositoryBuilder().GetAll(user, expenses).Build();
         var autoMapper = MapperBuilder.Build();
         var loggedUser = LoggedUserBuilder.Build(user);
         return new GetAllExpensesUseCase(repository, autoMapper, loggedUser);
