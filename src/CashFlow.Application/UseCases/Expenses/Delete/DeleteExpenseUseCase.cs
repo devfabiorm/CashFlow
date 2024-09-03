@@ -2,6 +2,7 @@
 using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Domain.Services.LoggedUser;
 using CashFlow.Exception;
+using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Delete;
 public class DeleteExpenseUseCase : IDeleteExpenseUseCase
@@ -31,7 +32,7 @@ public class DeleteExpenseUseCase : IDeleteExpenseUseCase
 
         if (expense is null)
         {
-            throw new DirectoryNotFoundException(ResourceErrorMessages.EXPENSE_NOT_FOUND);
+            throw new NotFoundException(ResourceErrorMessages.EXPENSE_NOT_FOUND);
         }
         
         await _repository.Delete(id);
