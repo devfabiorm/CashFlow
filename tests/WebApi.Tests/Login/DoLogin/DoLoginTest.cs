@@ -1,12 +1,9 @@
 ﻿using CashFlow.Communication.Requests;
 using CashFlow.Exception;
 using CommonTestUtilities.Requests;
-using DocumentFormat.OpenXml.Wordprocessing;
 using FluentAssertions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Tests.InlineData;
 
@@ -21,9 +18,9 @@ public class DoLoginTest : CashFlowClassFixture
 
     public DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _email = webApplicationFactory.GetEmail();
-        _name = webApplicationFactory.GetName();
-        _password = webApplicationFactory.GetPassword();
+        _email = webApplicationFactory.User_Team_Member.GetEmail();
+        _name = webApplicationFactory.User_Team_Member.GetName();
+        _password = webApplicationFactory.User_Team_Member.GetPassword();
     }
 
     [Fact]

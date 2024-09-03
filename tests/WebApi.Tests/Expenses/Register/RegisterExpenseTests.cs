@@ -3,8 +3,6 @@ using CommonTestUtilities.Requests;
 using FluentAssertions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Tests.InlineData;
 
@@ -17,7 +15,7 @@ public class RegisterExpenseTests : CashFlowClassFixture
 
     public RegisterExpenseTests(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _token = webApplicationFactory.GetToken();
+        _token = webApplicationFactory.User_Team_Member.GetToken();
     }
 
     [Fact]
