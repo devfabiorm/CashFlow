@@ -50,7 +50,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         Expense_MemberTeam = new ExpenseIdentityManager(expenseTeamMember);
 
         var useAdmin = AddUserAdmin(dbContext, passwordEncrypter, accessTokenGenerator);
-        var expenseAdmin = AddExpenses(dbContext, useAdmin, expenseId: 2);
+        var expenseAdmin = AddExpenses(dbContext, useAdmin, expenseId: 3, beginFrom: 2);
         Expense_Admin = new ExpenseIdentityManager(expenseAdmin);
 
         dbContext.SaveChanges();
@@ -90,9 +90,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         return user;
     }
 
-    private Expense AddExpenses(CashFlowDbContext dbContext, User user, long expenseId) 
+    private Expense AddExpenses(CashFlowDbContext dbContext, User user, long expenseId, uint beginFrom = 0) 
     {
-        var expenses = ExpenseBuilder.Collection(user);
+        var expenses = ExpenseBuilder.Collection(user, beginFrom: beginFrom);
         expenses[0].Id = expenseId;
 
         dbContext.Expenses.AddRange(expenses);

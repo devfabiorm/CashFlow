@@ -5,14 +5,14 @@ using CashFlow.Domain.Enums;
 namespace CommonTestUtilities.Entities;
 public class ExpenseBuilder
 {
-    public static List<Expense> Collection(User user, uint count = 2)
+    public static List<Expense> Collection(User user, uint count = 2, uint beginFrom = 0)
     {
         var list = new List<Expense>();
 
         if (count == 0)
             count = 1;
 
-        var expenseId = 1;
+        var expenseId = 1 + beginFrom;
 
         for (int i = 0; i < count; i++)
         {
