@@ -8,14 +8,14 @@ using CashFlow.Exception;
 using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.Application.UseCases.Users.ChangePassword;
-public class ChangePasswordUserUseCase : IChangePasswordUseCase
+public class ChangePasswordUseCase : IChangePasswordUseCase
 {
     private readonly ILoggedUser _loggedUser;
     private readonly IUserUpdateOnlyRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPasswordEncrypter _passwordEncrypter;
 
-    public ChangePasswordUserUseCase(
+    public ChangePasswordUseCase(
         ILoggedUser loggedUser,
         IUserUpdateOnlyRepository repository,
         IUnitOfWork unitOfWork,
