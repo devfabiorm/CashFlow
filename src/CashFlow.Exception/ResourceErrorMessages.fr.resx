@@ -153,4 +153,7 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erreur inconnue</value>
   </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>Le mot de passe saisi est différent du mot de passe actuel</value>
+  </data>
 </root>
