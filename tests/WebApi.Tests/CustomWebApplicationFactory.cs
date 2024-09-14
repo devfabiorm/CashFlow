@@ -46,11 +46,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private void StartDatabase(CashFlowDbContext dbContext, IPasswordEncrypter passwordEncrypter, IAccessTokenGenerator accessTokenGenerator)
     {
         var userTeamMember = AddUserTeamMember(dbContext, passwordEncrypter, accessTokenGenerator);
-        var expenseTeamMember = AddExpenses(dbContext, userTeamMember, expenseId: 1);
+        var expenseTeamMember = AddExpenses(dbContext, userTeamMember, expenseId: 1, tagId: 1);
         Expense_MemberTeam = new ExpenseIdentityManager(expenseTeamMember);
 
         var useAdmin = AddUserAdmin(dbContext, passwordEncrypter, accessTokenGenerator);
-        var expenseAdmin = AddExpenses(dbContext, useAdmin, expenseId: 3, beginFrom: 2);
+        var expenseAdmin = AddExpenses(dbContext, useAdmin, expenseId: 3, beginFrom: 2, tagId: 2);
         Expense_Admin = new ExpenseIdentityManager(expenseAdmin);
 
         dbContext.SaveChanges();
@@ -90,10 +90,17 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         return user;
     }
 
-    private Expense AddExpenses(CashFlowDbContext dbContext, User user, long expenseId, uint beginFrom = 0) 
+    private Expense AddExpenses(CashFlowDbContext dbContext, User user, long expenseId, long tagId, uint beginFrom = 0) 
     {
         var expenses = ExpenseBuilder.Collection(user, beginFrom: beginFrom);
         expenses[0].Id = expenseId;
+        var radom = new Random(3);
+
+        foreach (var tag in expenses.SelectMany(e => e.Tags))
+        {
+            tag.Id = tagId * radom.NextInt64(600);
+            tag.ExpenseId = expenseId;
+        }
 
         dbContext.Expenses.AddRange(expenses);
         return expenses[0];
